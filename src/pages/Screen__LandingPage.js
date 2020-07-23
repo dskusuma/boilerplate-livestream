@@ -2,22 +2,33 @@ import React from "react";
 
 export default function Screen__LandingPage() {
   return (
-    <div className="flex flex-col pt-10 items-center">
+    <div className="flex flex-col pt-10 items-center px-3 md:px-0">
       <h2 className="font-source-serif text-lg">The wedding of</h2>
-      <h1 className="font-source-serif font-bold text-3xl">
+      <h1 className="font-source-serif font-bold text-xl lg:text-3xl">
         Adzhahri Ahmad & Puspa C. Handayani
       </h1>
 
       <div
         aria-label="video-container"
-        className="w-2/3 shadow-xl my-3 bg-white p-5"
+        className="w-full md:w-2/3 shadow-xl my-3 bg-white p-4 md:p-5"
       >
         <img src={require("../assets/cover.jpeg")} />
       </div>
 
-      <div className="w-2/3 flex justify-between items-start border-t-2 border-gray-300 mt-5 pt-5 px-5 mb-10">
-        <div className="flex w-1/4 items-center">
-          <img src={require("../assets/gopay.png")} alt="gopay" />
+      <div
+        className={`
+        w-full md:w-2/3 
+        flex flex-col items-center md:flex-row md:justify-between md:items-start 
+        border-t-2 border-gray-300 
+        mt-4 pt-4 md:mt-5 md:pt-5 md:px-5 mb-10
+       `}
+      >
+        <div className="flex w-3/4 md:w-1/4 items-center justify-center mb-3">
+          <img
+            className="self-center"
+            src={require("../assets/gopay.png")}
+            alt="gopay"
+          />
         </div>
         <div className="flex flex-col w-3/4 p-3 border rounded">
           <input
