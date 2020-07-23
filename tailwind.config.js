@@ -5,6 +5,14 @@
 module.exports = {
   important: true,
   theme: {
-    extend: {},
+    fontFamily: {
+      "source-serif": ["Source Serif Pro", "sans-serif"],
+    },
+
+    extend: {
+      colors: {
+        "primary-yellow": "#F6BA20",
+      },
+    },
   },
 };
