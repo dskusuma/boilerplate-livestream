@@ -5,6 +5,9 @@
 module.exports = {
   important: true,
   theme: {
+    height: {
+      "1/2": "50%",
+    },
     fontFamily: {
       "source-serif": ["Source Serif Pro", "sans-serif"],
     },
