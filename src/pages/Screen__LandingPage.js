@@ -1,4 +1,7 @@
 import React from "react";
+import I18n from "../translations/i18n";
+import Livestream from "../constants/livestream";
+import DigitalWallet from "../constants/digitalWallet";
 
 export default function Screen__LandingPage() {
   const styles = {
@@ -40,10 +43,8 @@ export default function Screen__LandingPage() {
 
   return (
     <main className={styles.main}>
-      <h2 className={styles.mainHeadingIntro}>The wedding of</h2>
-      <h1 className={styles.mainHeading}>
-        Adzhahri Ahmad & Puspa C. Handayani
-      </h1>
+      <h2 className={styles.mainHeadingIntro}>{I18n["headingIntro"]}</h2>
+      <h1 className={styles.mainHeading}>{I18n["heading"]}</h1>
 
       <section
         aria-label="video-container"
@@ -51,7 +52,7 @@ export default function Screen__LandingPage() {
       >
         <iframe
           height={"350"}
-          src="https://www.youtube.com/embed/mWcRSUgAbmI"
+          src={Livestream.youtube}
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen

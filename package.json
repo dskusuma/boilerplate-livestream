@@ -1,5 +1,5 @@
 {
-  "name": "reactjs-template",
+  "name": "thekrama-livestream-boilerplate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +26,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:build": "build-storybook -s public",
-    "style:build": "tailwind build src/styles/index.css -o src/styles/tailwind.css"
+    "build:tailwind": "tailwind build src/styles/index.css -o src/styles/tailwind.css"
   },
   "eslintConfig": {
     "extends": "react-app"
