@@ -2,6 +2,10 @@ import React from "react";
 import I18n from "../translations/i18n";
 import Livestream from "../constants/livestream";
 import DigitalWallet from "../constants/digitalWallet";
+import FF from "../api/featureFlag";
+import { CommentInput } from "../components/Comments";
+import { getGuestBook, postComment } from "../api/firebase/guestBookService";
+import CommentList from "../components/CommentsList";
 
 export default function Screen__LandingPage() {
   const styles = {
@@ -15,9 +19,10 @@ export default function Screen__LandingPage() {
       hover:opacity-75 hover:w-3/4 
       cursor-pointer transition ease-in-out duration-300
       justify-center items-center
+max-w-4xl
     `,
     sectionGuestAction: `
-      w-full md:w-2/3 
+      w-full md:w-2/3  max-w-4xl
       flex flex-col items-center md:flex-row md:justify-between md:items-start 
       border-t-2 border-gray-300 
       mt-4 pt-4 md:mt-5 md:pt-5 md:px-5 mb-10
@@ -41,6 +46,29 @@ export default function Screen__LandingPage() {
   // TODO: Change this value
   const isDisabledButton = true;
 
+  const onSendComment = ({ guestName, comment }) => {
+    postComment({ guestName, comment });
+    fetchGuestBook();
+  };
+
+  const fetchGuestBook = async () => {
+    getGuestBook().then((res) => {
+      setGuestComment(res);
+    });
+  };
+
+  const [guestComment, setGuestComment] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchGuestBook = async () => {
+      getGuestBook().then((res) => {
+        setGuestComment(res);
+      });
+    };
+
+    fetchGuestBook();
+  }, []);
+
   return (
     <main className={styles.main}>
       <h2 className={styles.mainHeadingIntro}>{I18n["headingIntro"]}</h2>
@@ -51,11 +79,11 @@ export default function Screen__LandingPage() {
         className={styles.sectionVideoContainer}
       >
         <iframe
-          height={"350"}
+          height={"400"}
           src={Livestream.youtube}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen={true}
           className="w-full h-full"
         />
       </section>
@@ -64,41 +92,26 @@ export default function Screen__LandingPage() {
         aria-label="section-guest-action"
         className={styles.sectionGuestAction}
       >
-        <div className={styles.gopayContainer}>
-          <img
-            aria-label="gopay-image"
-            className="self-center w-3/4"
-            src={require("../assets/gopay.jpeg")}
-            alt="gopay"
-          />
-          <p className={styles.qrCodeText}>
-            Scan QR Code ini jika kamu ingin memberi amplop digital 🙂
-          </p>
-        </div>
-        <div className={styles.guestInputContainer}>
-          <input
-            className={styles.textInputGuestName}
-            id="username"
-            type="text"
-            placeholder="Nama kamu"
-            disabled
-          />
-          <textarea
-            className={styles.textInputComment}
-            id="comment"
-            type="text"
-            placeholder="Komentar kamu tentang pernikahan ini"
-            disabled
-          />
+        {FF.hasGopay && (
+          <div className={styles.gopayContainer}>
+            <img
+              aria-label="gopay-image"
+              className="self-center w-3/4"
+              src={require("../assets/gopay.jpeg")}
+              alt="gopay"
+            />
+            <p className={styles.qrCodeText}>
+              Scan QR Code ini jika kamu ingin memberi amplop digital 🙂
+            </p>
+          </div>
+        )}
+        {FF.hasCommentSection && (
+          <div className="flex flex-col w-3/4">
+            <CommentInput onSendComment={onSendComment} />
 
-          <button
-            className={styles.button(isDisabledButton)}
-            type="button"
-            disabled
-          >
-            Kirim Komentar
-          </button>
-        </div>
+            <CommentList comments={guestComment} />
+          </div>
+        )}
       </section>
     </main>
   );

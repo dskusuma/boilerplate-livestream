@@ -1,5 +1,5 @@
 module.exports = {
-  hasCommentSection: false,
-  hasGopay: false,
+  hasCommentSection: true,
+  hasGopay: true,
   hasCountdown: false,
 };
